@@ -3,7 +3,7 @@ import FormField from "./FormField";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import GuestLayout from "../layout/GuestLayout";
-import { USER_DETAILS, USER_SESSION_DETAILS } from "../../lib/userDetails";
+import content from "../../lib/testingUserList.json";
 import { PAGE_LINKS } from "../../lib/pageLink";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -28,7 +28,7 @@ const LoginForm = () => {
     if (!loading) {
       setLoading(true);
 
-      const userExist = USER_DETAILS.find((user) => user.username === username);
+      const userExist = content.testingUserlist.find((user) => user.username === username);
       if (!!userExist) {
         if (userExist.password === password) {
           login(userExist);

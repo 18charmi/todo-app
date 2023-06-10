@@ -18,13 +18,13 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [edit, updateEdit] = useState({});
-  const [pageLoad, setPageLoad] = useState(false);
+  const [todoList, updateTodoList] = useState([]);
   const {user} = useAuth();
 
   useEffect(() => {
-    dispatch(updateTodo(user.id))
-    setPageLoad(true)
-  },[]);
+    updateTodoList(todos.filter(item => item.userId === user.id));
+  },[todos]);
+
   const _handleClick = () => {
     navigate(PAGE_LINKS.ADD_TODO);
   };
@@ -36,7 +36,6 @@ function Dashboard() {
     }, 200);
   };
 
-  if(!pageLoad) return <></>
   return (
     <Layout>
       <div className="flex justify-between items-center pb-4">
@@ -45,8 +44,8 @@ function Dashboard() {
           Add New
         </Button>
       </div>
-      {todos.length > 0
-        ? todos.map((todo) => (
+      {todoList.length > 0
+        ? todoList.map((todo) => (
             <TodoItem
               title={todo.title}
               description={todo.description}

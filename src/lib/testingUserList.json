@@ -1,0 +1,21 @@
+{"testingUserlist":[
+    {
+      "id": 1,
+      "name": "Admin",
+      "username": "admin",
+      "password": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Mario",
+      "username": "mario",
+      "password": "mario"
+    },
+    {
+      "id": 3,
+      "name": "Charmi",
+      "username": "charmi",
+      "password": "charmi"
+    }
+  ]
+}
