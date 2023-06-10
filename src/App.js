@@ -1,26 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./components/page/Login";
+import Dashboard from "./components/page/Dashboard";
+import AddTodo from "./components/page/AddTodo";
+import { Route, Routes } from "react-router-dom";
+import { PAGE_LINKS } from "./lib/pageLink";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path={PAGE_LINKS.HOME} element={<Dashboard />} />
+        <Route path={PAGE_LINKS.LOGIN} element={<Login />} />
+        <Route path={PAGE_LINKS.ADD_TODO} element={<AddTodo />} />
+      </Routes>
     </div>
   );
 }
