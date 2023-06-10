@@ -7,17 +7,19 @@ import { toDoSelector } from "../../store/selectors";
 import { TODOS_ACTION } from "../../store/slices/todosAction";
 import { useNavigate } from "react-router-dom";
 import { PAGE_LINKS } from "../../lib/pageLink";
+import { useAuth } from "../hooks/useAuth";
 
 function AddTodo() {
   const { action } = useSelector(toDoSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // update store byy adding new note & navigate to dashboard
   const _onSubmit = (payload) => {
     dispatch(actionOnTodo(TODOS_ACTION.CREATING));
     setTimeout(() => {
-      dispatch(addToDo(payload));
+      dispatch(addToDo({ ...payload, userId: user.id }));
       navigate(PAGE_LINKS.HOME);
     }, 200);
   };

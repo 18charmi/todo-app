@@ -8,8 +8,9 @@ import AddTodoForm from "../form/AddTodoForm";
 import { toDoSelector } from "../../store/selectors";
 import { PAGE_LINKS } from "../../lib/pageLink";
 import { TODOS_ACTION } from "../../store/slices/todosAction";
-import { actionOnTodo, editActiveNote } from "../../store/slices/todos";
-import { useState } from "react";
+import { actionOnTodo, editActiveNote, updateTodo } from "../../store/slices/todos";
+import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 function Dashboard() {
   const { todos = [], action } = useSelector(toDoSelector);
@@ -17,7 +18,13 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [edit, updateEdit] = useState({});
+  const [pageLoad, setPageLoad] = useState(false);
+  const {user} = useAuth();
 
+  useEffect(() => {
+    dispatch(updateTodo(user.id))
+    setPageLoad(true)
+  },[]);
   const _handleClick = () => {
     navigate(PAGE_LINKS.ADD_TODO);
   };
@@ -28,7 +35,8 @@ function Dashboard() {
       updateEdit({});
     }, 200);
   };
-  // console.log(`todos--`, todos, edit);
+
+  if(!pageLoad) return <></>
   return (
     <Layout>
       <div className="flex justify-between items-center pb-4">

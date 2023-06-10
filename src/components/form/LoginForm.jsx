@@ -1,9 +1,48 @@
+import { useEffect, useState } from "react";
 import FormField from "./FormField";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import GuestLayout from "../layout/GuestLayout";
+import { USER_DETAILS, USER_SESSION_DETAILS } from "../../lib/userDetails";
+import { PAGE_LINKS } from "../../lib/pageLink";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
+  const { user, login } = useAuth();
+
+  useEffect(() => {
+    if (!!user) navigate(PAGE_LINKS.HOME);
+  }, [user]);
+
+  // submit details
+  const _onSubmit = (e) => {
+    e.preventDefault();
+    if (!loading) {
+      setLoading(true);
+
+      const userExist = USER_DETAILS.find((user) => user.username === username);
+      if (!!userExist) {
+        if (userExist.password === password) {
+          login(userExist);
+        } else {
+          setError("User details are not correct");
+        }
+      } else {
+        setError("User does not exist");
+      }
+
+      setLoading(false);
+    }
+  };
+
   return (
     <GuestLayout>
       <div className="lg:w-1/2">
@@ -15,16 +54,30 @@ const LoginForm = () => {
             Log in
           </h2>
           <div className="mt-12">
-            <form>
-              <FormField label="Email Address">
-                <Input type="text" placeholder="example@mail.com" />
+            <form onSubmit={_onSubmit}>
+              <FormField label="Username">
+                <Input
+                  type="text"
+                  placeholder="username"
+                  value={username}
+                  onChange={setUsername}
+                />
               </FormField>
               <FormField label="Password">
-                <Input type="password" placeholder="Enter your Password" />
+                <Input
+                  type="password"
+                  placeholder="Enter your Password"
+                  value={password}
+                  onChange={setPassword}
+                />
               </FormField>
-
+              {error.length > 0 ? (
+                <div className="text-sm text-red-900 p-4">{error}</div>
+              ) : null}
               <FormField>
-                <Button type="submit" fullWidth>Log In</Button>
+                <Button type="submit" fullWidth>
+                  {loading ? "Checking user details.." : "Log In"}
+                </Button>
               </FormField>
             </form>
           </div>

@@ -2,6 +2,7 @@ const TODOS = "todos";
 const getToDos = () => {
   return new Promise((resolve, reject) => {
     const todos = localStorage.getItem(TODOS);
+
     // check if there is any data in localstorage
     if (!todos) {
       resolve([]);

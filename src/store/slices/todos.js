@@ -11,21 +11,21 @@ export const initialState = {
       description:
         "Description: Text a friend I haven't talked to in a long time",
       completed: false,
-      userId: 39,
+      userId: 1,
     },
     {
       id: 12,
       title: "Organize pantry",
       description: "Description : Organize pantry",
       completed: true,
-      userId: 39,
+      userId: 2,
     },
     {
       id: 13,
       title: "Buy a new house decoration",
       description: "Description: Buy a new house decoration",
       completed: false,
-      userId: 16,
+      userId: 3,
     },
   ],
   action: TODOS_ACTION.RESET,
@@ -61,6 +61,9 @@ const toDos = createSlice({
     },
     loadToDosError: (state) => initialState,
     saveToDos: (state) => {},
+    updateTodo: (state, {payload}) => {
+      state.todos = state.todos.filter(todo => todo.userId === payload)
+    }
   },
 });
 
@@ -68,6 +71,7 @@ export const {
   actionOnTodo,
   addToDo,
   editActiveNote,
+  updateTodo,
 
   loadToDos,
   loadToDosError,

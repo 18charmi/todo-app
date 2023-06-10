@@ -19,11 +19,6 @@ const AddTodoForm = ({
       setDescription(defaultDescription);
     }
   }, [defaultTitle, defaultDescription]);
-  // submit details
-  const _onSubmit = (e) => {
-    e.preventDefault();
-    if (!loading) onSubmit({ title, description });
-  };
 
   // reset form after loading gets completed
   useEffect(() => {
@@ -33,6 +28,12 @@ const AddTodoForm = ({
     }
   }, [loading]);
 
+  // submit details
+  const _onSubmit = (e) => {
+    e.preventDefault();
+    if (!loading) onSubmit({ title, description });
+  };
+  
   return (
     <div className="mx-auto bg-white ">
       <div className="mt-10 px-12 md:px-24 ">
