@@ -19,7 +19,7 @@ const Input = ({
         rows="5"
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
       ></textarea>
     );
@@ -33,7 +33,7 @@ const Input = ({
       type={type}
       name={name}
       value={value}
-      onChange={onChange}
+      onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
     />
   );
