@@ -8,7 +8,7 @@ import AddTodoForm from "../form/AddTodoForm";
 import { toDoSelector } from "../../store/selectors";
 import { PAGE_LINKS } from "../../lib/pageLink";
 import { TODOS_ACTION } from "../../store/slices/todosAction";
-import { actionOnTodo, editActiveNote, updateTodo } from "../../store/slices/todos";
+import { actionOnTodo, editActiveNote } from "../../store/slices/todos";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
